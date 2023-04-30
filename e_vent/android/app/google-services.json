@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "460953816961",
+    "project_id": "e-event-app",
+    "storage_bucket": "e-event-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460953816961:android:af81c0a77f2591da4d2280",
+        "android_client_info": {
+          "package_name": "com.example.e_vent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460953816961-fnp01offuim2qp9piok58138pcgoud9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5VwjvGWMlnlxRo7UlAhIdiKHaqdBMSF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460953816961-fnp01offuim2qp9piok58138pcgoud9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

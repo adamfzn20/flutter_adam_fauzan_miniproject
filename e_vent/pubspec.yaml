@@ -31,10 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  firebase_core: ^2.10.0
+  firebase_auth: ^4.4.2
+  cloud_firestore: ^4.5.3
+  shared_preferences: ^2.1.0
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +54,21 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+flutter_native_splash:
+  color: "#F1511B"
+  image: assets/logo_putih.png
+  color_dark: "#F1511B"
+  image_dark: assets/logo_putih.png
+
+  android_12:
+    image: assets/logo_putih.png
+    icon_background_color: "#F1511B"
+    image_dark: assets/logo_putih.png
+    icon_background_color_dark: "#F1511B"
+
+  web: false
+
+
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -59,9 +78,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/logo_warna.png
+    - assets/logo_putih.png
+    - assets/forgot_pass.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
