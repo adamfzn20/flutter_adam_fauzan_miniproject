@@ -34,24 +34,6 @@ class _EventEditScreenState extends State<EventEditScreen> {
 
   final eventService = EventService();
 
-  var options = [
-    'etc',
-    'Technology',
-    'Science',
-    'Art',
-    'Education',
-    'Health',
-    'Culture',
-    'Religion',
-    'Business',
-    'Sport',
-    'Food',
-    'Fashion',
-  ];
-
-  String _currentItemSelected = "etc";
-  String? _category;
-
   @override
   void initState() {
     super.initState();
@@ -153,6 +135,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
       id: widget.event.id,
       adminId: widget.event.adminId,
       emailAdmin: widget.event.emailAdmin,
+      imageAdmin: widget.event.imageAdmin,
       title: _titleController.text,
       description: _descriptionController.text,
       date: _date,
@@ -161,7 +144,6 @@ class _EventEditScreenState extends State<EventEditScreen> {
       currentAttendees: widget.event.currentAttendees,
       price: int.parse(_priceController.text),
       status: widget.event.status,
-      category: _category,
       image: imageUrl ?? widget.event.image,
     );
 
@@ -391,48 +373,6 @@ class _EventEditScreenState extends State<EventEditScreen> {
                   }
                   return null;
                 },
-              ),
-              const SizedBox(height: 16),
-              Container(
-                height: 55,
-                decoration: const BoxDecoration(
-                  color: Color(0xffD9D9D9),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Category: '),
-                      DropdownButton<String>(
-                        menuMaxHeight: 250,
-                        isDense: true,
-                        isExpanded: false,
-                        items: options.map((String dropDownStringItem) {
-                          return DropdownMenuItem<String>(
-                            value: dropDownStringItem,
-                            child: Text(
-                              dropDownStringItem,
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (newValueSelected) {
-                          setState(() {
-                            _currentItemSelected = newValueSelected!;
-                            _category = newValueSelected;
-                          });
-                        },
-                        value: _currentItemSelected,
-                      ),
-                    ],
-                  ),
-                ),
               ),
               const SizedBox(height: 16),
               InkWell(

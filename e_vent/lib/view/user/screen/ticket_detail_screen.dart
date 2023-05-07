@@ -9,17 +9,17 @@ import 'package:flutter/material.dart';
 import '../../../../model/event/event_model.dart';
 import '../../../service/event_service.dart';
 
-class EventDetailUserScreen extends StatefulWidget {
+class TicketDetailUserScreen extends StatefulWidget {
   final String eventId;
 
-  const EventDetailUserScreen({Key? key, required this.eventId})
+  const TicketDetailUserScreen({Key? key, required this.eventId})
       : super(key: key);
 
   @override
-  State<EventDetailUserScreen> createState() => _EventDetailUserScreenState();
+  State<TicketDetailUserScreen> createState() => _TicketDetailUserScreenState();
 }
 
-class _EventDetailUserScreenState extends State<EventDetailUserScreen> {
+class _TicketDetailUserScreenState extends State<TicketDetailUserScreen> {
   final EventService _eventService = EventService();
 
   bool _isLoading = false;
@@ -72,45 +72,6 @@ class _EventDetailUserScreenState extends State<EventDetailUserScreen> {
       _availableAttendees = _event!.availableAttendees;
       _price = _event!.price;
     });
-  }
-
-  Future<void> _buyTicket() async {
-    setState(() {
-      _isLoading = true;
-    });
-    final newTicket = Ticket(
-        userId: id,
-        eventId: widget.eventId,
-        titleEvent: _event!.title,
-        descriptionEvent: _event!.description,
-        dateEvent: _date,
-        locationEvent: _event!.location,
-        totalPrice: _price,
-        imageEvent: _event!.image,
-        payment: false);
-    try {
-      await TicketService().purchaseTicket(newTicket);
-      Navigator.popUntil(context, ModalRoute.withName('/homePage'));
-    } catch (error) {
-      setState(() {
-        _isLoading = false;
-      });
-      await showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text('An Error Occurred!'),
-          content: const Text('Something went wrong. Please try again later.'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Okay'),
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-            )
-          ],
-        ),
-      );
-    }
   }
 
   @override
@@ -225,20 +186,6 @@ class _EventDetailUserScreenState extends State<EventDetailUserScreen> {
                     ),
                   ),
                 ],
-              ),
-            ),
-            bottomNavigationBar: Container(
-              height: 50,
-              color: const Color(0xffF1511B),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                  onPressed: _buyTicket,
-                  child: const Text(
-                    'Buy Ticket',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
               ),
             ),
           )

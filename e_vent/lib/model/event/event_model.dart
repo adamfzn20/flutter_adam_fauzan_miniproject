@@ -12,6 +12,7 @@ class Event {
   String? image;
   String? adminId;
   String? emailAdmin;
+  String? imageAdmin;
   bool status;
   String? category;
 
@@ -27,8 +28,8 @@ class Event {
     this.image,
     this.adminId,
     this.emailAdmin,
+    this.imageAdmin,
     this.status = true,
-    this.category,
   });
 
   factory Event.fromFirestore(DocumentSnapshot doc) {
@@ -46,8 +47,8 @@ class Event {
       image: data['image'],
       adminId: data['adminId'],
       emailAdmin: data['emailAdmin'],
+      imageAdmin: data['imageAdmin'],
       status: data['status'],
-      category: data['Category'],
     );
   }
 
@@ -63,8 +64,8 @@ class Event {
       'image': image,
       'adminId': adminId,
       'emailAdmin': emailAdmin,
+      'imageAdmin': imageAdmin,
       'status': status,
-      'category': category,
     };
   }
 
@@ -81,8 +82,26 @@ class Event {
       image: image,
       adminId: adminId,
       emailAdmin: emailAdmin,
+      imageAdmin: imageAdmin,
       status: status,
-      category: category,
+    );
+  }
+
+  Event copyWithTwo() {
+    return Event(
+      id: id,
+      title: title,
+      description: description,
+      date: date,
+      location: location,
+      availableAttendees: availableAttendees! - 1,
+      currentAttendees: currentAttendees! + 1,
+      price: price,
+      image: image,
+      adminId: adminId,
+      emailAdmin: emailAdmin,
+      imageAdmin: imageAdmin,
+      status: status,
     );
   }
 }

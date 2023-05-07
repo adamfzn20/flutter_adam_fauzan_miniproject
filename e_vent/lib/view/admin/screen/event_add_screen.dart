@@ -39,24 +39,6 @@ class _EventAddScreenState extends State<EventAddScreen> {
   String? name;
   String? image;
 
-  var options = [
-    'etc',
-    'Technology',
-    'Science',
-    'Art',
-    'Education',
-    'Health',
-    'Culture',
-    'Religion',
-    'Business',
-    'Sport',
-    'Food',
-    'Fashion',
-  ];
-
-  String _currentItemSelected = "etc";
-  String? _category;
-
   @override
   void initState() {
     super.initState();
@@ -180,7 +162,7 @@ class _EventAddScreenState extends State<EventAddScreen> {
           availableAttendees: int.parse(_availableAttendeesController.text),
           currentAttendees: 0,
           price: int.parse(_priceController.text),
-          category: _category,
+          imageAdmin: loggedInUser.image,
           status: true,
         );
         try {
@@ -423,48 +405,6 @@ class _EventAddScreenState extends State<EventAddScreen> {
                   }
                   return null;
                 },
-              ),
-              const SizedBox(height: 16),
-              Container(
-                height: 55,
-                decoration: const BoxDecoration(
-                  color: Color(0xffD9D9D9),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Category: '),
-                      DropdownButton<String>(
-                        menuMaxHeight: 250,
-                        isDense: true,
-                        isExpanded: false,
-                        items: options.map((String dropDownStringItem) {
-                          return DropdownMenuItem<String>(
-                            value: dropDownStringItem,
-                            child: Text(
-                              dropDownStringItem,
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (newValueSelected) {
-                          setState(() {
-                            _currentItemSelected = newValueSelected!;
-                            _category = newValueSelected;
-                          });
-                        },
-                        value: _currentItemSelected,
-                      ),
-                    ],
-                  ),
-                ),
               ),
               const SizedBox(height: 16),
               InkWell(

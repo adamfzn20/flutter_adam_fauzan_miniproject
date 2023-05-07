@@ -73,6 +73,30 @@ class EventService {
     });
   }
 
+  Future<List<Event>> getUpcomingEvents() async {
+    final now = DateTime.now();
+    final end = now.add(const Duration(days: 30));
+
+    final querySnapshot = await eventsCollection
+        .where('date', isGreaterThanOrEqualTo: now)
+        .where('date', isLessThanOrEqualTo: end)
+        .get();
+
+    return querySnapshot.docs.map((doc) => Event.fromFirestore(doc)).toList();
+  }
+
+  Future<List<Event>> getUpcomingEventsBanner() async {
+    final now = DateTime.now();
+    final end = now.add(const Duration(days: 10));
+
+    final querySnapshot = await eventsCollection
+        .where('date', isGreaterThanOrEqualTo: now)
+        .where('date', isLessThanOrEqualTo: end)
+        .get();
+
+    return querySnapshot.docs.map((doc) => Event.fromFirestore(doc)).toList();
+  }
+
   // Mengambil daftar event dari Firestore yang masih terbuka
   Stream<List<Event>> getOpenEvents() {
     return eventsCollection

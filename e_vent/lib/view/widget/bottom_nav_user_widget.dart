@@ -1,19 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_vent/model/event/event_model.dart';
-import 'package:e_vent/service/event_service.dart';
-import 'package:e_vent/service/user_service.dart';
 import 'package:e_vent/view/profile/screen/profile_screen.dart';
-import 'package:e_vent/view/user/screen/event_detail_user_screen.dart';
 import 'package:e_vent/view/user/screen/home_user_screen.dart';
-import 'package:e_vent/view/user/screen/payment_event_screen.dart';
+import 'package:e_vent/view/user/screen/payment_user_screen.dart';
 import 'package:e_vent/view/user/screen/search_event_screen.dart';
 import 'package:e_vent/view/user/screen/ticket_user_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../model/user/user_model.dart';
 
 class Users extends StatefulWidget {
   final String id;
@@ -33,7 +24,7 @@ class _UsersState extends State<Users> {
     const HomeUserScreen(),
     const SearchEventScreen(),
     const TicketEventScreen(),
-    const PaymentEventScreen(),
+    const PaymentUserScreen(),
     const Profile(),
   ];
 

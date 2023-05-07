@@ -24,6 +24,7 @@ class CardDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -51,6 +52,7 @@ class CardDetail extends StatelessWidget {
                 ],
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -74,8 +76,8 @@ class CardDetail extends StatelessWidget {
                       const SizedBox(width: 8),
                       date.minute == 0
                           ? Text(
-                              'Time          \n${date.hour}:${date.minute}${date.second}')
-                          : Text('Time          \n${date.hour}:${date.minute}'),
+                              'Time \n${date.hour}:${date.minute}${date.second}')
+                          : Text('Time \n${date.hour}:${date.minute}'),
                     ],
                   ),
                 ],

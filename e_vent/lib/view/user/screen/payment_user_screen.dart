@@ -1,20 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_vent/model/ticket/ticket_model.dart';
 import 'package:e_vent/model/user/user_model.dart';
+import 'package:e_vent/service/event_service.dart';
 import 'package:e_vent/service/ticket_service.dart';
-import 'package:e_vent/view/user/screen/ticket_detail_screen.dart';
+import 'package:e_vent/view/user/screen/buy_ticket_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TicketEventScreen extends StatefulWidget {
-  const TicketEventScreen({super.key});
+class PaymentUserScreen extends StatefulWidget {
+  const PaymentUserScreen({super.key});
 
   @override
-  State<TicketEventScreen> createState() => _TicketEventScreenState();
+  State<PaymentUserScreen> createState() => _PaymentUserScreenState();
 }
 
-class _TicketEventScreenState extends State<TicketEventScreen> {
+class _PaymentUserScreenState extends State<PaymentUserScreen> {
   final TicketService _ticketService = TicketService();
   late User? user = FirebaseAuth.instance.currentUser;
   late UserModel loggedInUser = UserModel();
@@ -44,7 +45,7 @@ class _TicketEventScreenState extends State<TicketEventScreen> {
             id = loggedInUser.uid.toString();
             name = loggedInUser.name.toString();
             image = loggedInUser.name.toString();
-            _ticketsStream = _ticketService.getTicketsPaymentTrue(id!);
+            _ticketsStream = _ticketService.getTicketsPaymentFalse(id!);
           });
         }
       });
@@ -55,7 +56,7 @@ class _TicketEventScreenState extends State<TicketEventScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ticket'),
+        title: const Text('Payment'),
         centerTitle: true,
       ),
       body: StreamBuilder<List<Ticket>>(
@@ -91,7 +92,8 @@ class _TicketEventScreenState extends State<TicketEventScreen> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => TicketDetailUserScreen(
+                                builder: (context) => BuyTicketScreen(
+                                  ticketId: ticket.id.toString(),
                                   eventId: ticket.eventId.toString(),
                                 ),
                               ),
