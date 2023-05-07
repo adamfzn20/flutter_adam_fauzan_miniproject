@@ -2,19 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/user/user_model.dart';
-import 'admin/admin_screen.dart';
-import 'user/user_screen.dart';
+import '../model/user/user_model.dart';
+import '../view/widget/bottom_nav_admin_widget.dart';
+import '../view/widget/bottom_nav_user_widget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeController extends StatefulWidget {
+  const HomeController({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeController> createState() => _HomeControllerState();
 }
 
-class _HomePageState extends State<HomePage> {
-  _HomePageState();
+class _HomeControllerState extends State<HomeController> {
+  _HomeControllerState();
   @override
   Widget build(BuildContext context) {
     return const Control();

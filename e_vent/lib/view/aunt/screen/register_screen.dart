@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:e_vent/service/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../../model/user/user_model.dart';
-import '../login/login_screen.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -21,12 +19,11 @@ class _RegisterState extends State<Register> {
 
   final _formKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
-  CollectionReference ref = FirebaseFirestore.instance.collection('users');
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmpassController = TextEditingController();
-  final TextEditingController name = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController mobile = TextEditingController();
+
   bool _isObscure = true;
   bool _isObscure2 = true;
   File? file;
@@ -36,6 +33,9 @@ class _RegisterState extends State<Register> {
   ];
   var _currentItemSelected = "User";
   var role = "User";
+
+  String image =
+      'https://firebasestorage.googleapis.com/v0/b/e-event-app.appspot.com/o/profile%2Ffacebook-default-no-profile-pic1.jpg?alt=media&token=5530bb1c-75b3-472e-8efe-73ea2fc92b9a';
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +64,6 @@ class _RegisterState extends State<Register> {
                             IconButton(
                               onPressed: () {
                                 Navigator.pushReplacementNamed(context, '/');
-                                // Navigator.pushReplacement(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const LoginPage()));
                               },
                               icon: const Icon(Icons.arrow_back),
                             ),
@@ -81,7 +76,7 @@ class _RegisterState extends State<Register> {
                         const Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            "Buat akunmu",
+                            "Create Your Account",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -90,6 +85,37 @@ class _RegisterState extends State<Register> {
                         ),
                         const SizedBox(
                           height: 30,
+                        ),
+                        TextFormField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xffD9D9D9),
+                            hintText: 'name',
+                            enabled: true,
+                            contentPadding: const EdgeInsets.only(
+                                left: 14.0, bottom: 8.0, top: 15.0),
+                            prefixIcon: const Icon(Icons.person_outline),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Name cannot be empty";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {},
+                        ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         TextFormField(
                           controller: emailController,
@@ -215,40 +241,60 @@ class _RegisterState extends State<Register> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Role : ",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                        Container(
+                          height: 55,
+                          decoration: const BoxDecoration(
+                            color: Color(0xffD9D9D9),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10),
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
                             ),
-                            DropdownButton<String>(
-                              isDense: true,
-                              isExpanded: false,
-                              items: options.map((String dropDownStringItem) {
-                                return DropdownMenuItem<String>(
-                                  value: dropDownStringItem,
-                                  child: Text(
-                                    dropDownStringItem,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: const [
+                                    Icon(Icons.person_outline_outlined),
+                                    SizedBox(
+                                      width: 10,
                                     ),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (newValueSelected) {
-                                setState(() {
-                                  _currentItemSelected = newValueSelected!;
-                                  role = newValueSelected;
-                                });
-                              },
-                              value: _currentItemSelected,
+                                    Text(
+                                      "Role : ",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                DropdownButton<String>(
+                                  isDense: true,
+                                  isExpanded: false,
+                                  items:
+                                      options.map((String dropDownStringItem) {
+                                    return DropdownMenuItem<String>(
+                                      value: dropDownStringItem,
+                                      child: Text(
+                                        dropDownStringItem,
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValueSelected) {
+                                    setState(() {
+                                      _currentItemSelected = newValueSelected!;
+                                      role = newValueSelected;
+                                    });
+                                  },
+                                  value: _currentItemSelected,
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -266,10 +312,14 @@ class _RegisterState extends State<Register> {
                               setState(() {
                                 showProgress = true;
                               });
-                              signUp(emailController.text,
-                                  passwordController.text, role);
+                              signUp(
+                                emailController.text,
+                                passwordController.text,
+                                role,
+                                nameController.text,
+                                image,
+                              );
                               const CircularProgressIndicator();
-                              Navigator.pushReplacementNamed(context, '/');
                             }
                           },
                           color: const Color(0xffF1511B),
@@ -277,7 +327,7 @@ class _RegisterState extends State<Register> {
                           child: const Text(
                             "Register",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -288,21 +338,15 @@ class _RegisterState extends State<Register> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              "Sudah punya akun?",
+                              "Already have an account?",
                             ),
                             TextButton(
                               onPressed: () {
                                 const CircularProgressIndicator();
                                 Navigator.pushReplacementNamed(context, '/');
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => LoginPage(),
-                                //   ),
-                                // );
                               },
                               child: const Text(
-                                "Masuk Akun",
+                                "Login",
                                 style: TextStyle(
                                   color: Color(0xff3C5E8D),
                                   fontSize: 16,
@@ -324,26 +368,20 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void signUp(String email, String password, String role) async {
+  void signUp(String email, String password, String role, String name,
+      String image) async {
     const CircularProgressIndicator();
     if (_formKey.currentState!.validate()) {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {postDetailsToFirestore(email, role)})
-          .catchError((e) {});
+          .then((value) => {
+                UserService().addUser(
+                    email: email, image: image, name: name, role: role),
+                Navigator.pushReplacementNamed(context, '/'),
+              })
+          .catchError((e) {
+        ScaffoldMessenger.of(context).showSnackBar(e);
+      });
     }
-  }
-
-  postDetailsToFirestore(String email, String role) async {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    User? user = _auth.currentUser;
-    UserModel userModel = UserModel();
-    userModel.email = email;
-    userModel.uid = user!.uid;
-    userModel.wrole = role;
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .set(userModel.toMap());
   }
 }

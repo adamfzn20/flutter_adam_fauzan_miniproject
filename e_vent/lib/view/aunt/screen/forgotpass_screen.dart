@@ -1,20 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../login/login_screen.dart';
-
-class Forgotpass extends StatefulWidget {
-  const Forgotpass({Key? key}) : super(key: key);
+class ForgotPass extends StatefulWidget {
+  const ForgotPass({Key? key}) : super(key: key);
 
   @override
-  State<Forgotpass> createState() => _ForgotpassState();
+  State<ForgotPass> createState() => _ForgotPassState();
 }
 
-class _ForgotpassState extends State<Forgotpass> {
+class _ForgotPassState extends State<ForgotPass> {
   // bool showProgress = false;
   bool visible = false;
   final _auth = FirebaseAuth.instance;
-  final _formkey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -30,7 +28,7 @@ class _ForgotpassState extends State<Forgotpass> {
                 child: Container(
                   margin: const EdgeInsets.all(16),
                   child: Form(
-                    key: _formkey,
+                    key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,17 +41,14 @@ class _ForgotpassState extends State<Forgotpass> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage()));
+                                Navigator.pushReplacementNamed(context, '/');
                               },
                               icon: const Icon(Icons.arrow_back),
                             ),
                           ],
                         ),
                         const Text(
-                          'Lupa Password',
+                          'Forgot Password',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -67,8 +62,7 @@ class _ForgotpassState extends State<Forgotpass> {
                         const SizedBox(
                           height: 30,
                         ),
-                        const Text(
-                            'Masukan email telah kamu daftarkan sebagai akun'),
+                        const Text('Enter the email you have registered'),
                         const SizedBox(
                           height: 30,
                         ),
@@ -76,7 +70,7 @@ class _ForgotpassState extends State<Forgotpass> {
                           controller: emailController,
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Color.fromARGB(255, 226, 226, 226),
+                            fillColor: const Color(0xffD9D9D9),
                             hintText: 'Email',
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
@@ -93,7 +87,7 @@ class _ForgotpassState extends State<Forgotpass> {
                           ),
                           textInputAction: TextInputAction.done,
                           validator: (value) {
-                            if (value!.length == 0) {
+                            if (value!.isEmpty) {
                               return "Email cannot be empty";
                             }
                             if (!RegExp(
@@ -121,7 +115,7 @@ class _ForgotpassState extends State<Forgotpass> {
                           minWidth: BouncingScrollSimulation
                               .maxSpringTransferVelocity,
                           onPressed: () {
-                            Forgotpassss(emailController.text);
+                            forgotPass(emailController.text);
                             setState(() {
                               visible = true;
                             });
@@ -135,53 +129,7 @@ class _ForgotpassState extends State<Forgotpass> {
                             ),
                           ),
                         ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   crossAxisAlignment: CrossAxisAlignment.end,
-                        //   children: [
-                        //     MaterialButton(
-                        //       shape: RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.all(
-                        //               Radius.circular(20.0))),
-                        //       elevation: 5.0,
-                        //       height: 40,
-                        //       onPressed: () {
-                        //         Navigator.pushReplacement(
-                        //             context,
-                        //             MaterialPageRoute(
-                        //                 builder: (context) => LoginPage()));
-                        //       },
-                        //       child: Text(
-                        //         "Login",
-                        //         style: TextStyle(
-                        //           fontSize: 20,
-                        //         ),
-                        //       ),
-                        //       color: Colors.white,
-                        //     ),
-                        //     MaterialButton(
-                        //       shape: RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.all(
-                        //               Radius.circular(20.0))),
-                        //       elevation: 5.0,
-                        //       height: 40,
-                        //       onPressed: () {
-                        //         Forgotpassss(emailController.text);
-                        //         setState(() {
-                        //           visible = true;
-                        //         });
-                        //       },
-                        //       child: Text(
-                        //         "Ok",
-                        //         style: TextStyle(
-                        //           fontSize: 20,
-                        //         ),
-                        //       ),
-                        //       color: Colors.white,
-                        //     ),
-                        //   ],
-                        // ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Visibility(
@@ -189,10 +137,9 @@ class _ForgotpassState extends State<Forgotpass> {
                             maintainAnimation: true,
                             maintainState: true,
                             visible: visible,
-                            child: Container(
-                                child: CircularProgressIndicator(
+                            child: const CircularProgressIndicator(
                               color: Colors.white,
-                            ))),
+                            )),
                       ],
                     ),
                   ),
@@ -205,15 +152,14 @@ class _ForgotpassState extends State<Forgotpass> {
     );
   }
 
-  void Forgotpassss(String email) async {
-    if (_formkey.currentState!.validate()) {
+  void forgotPass(String email) async {
+    if (_formKey.currentState!.validate()) {
       await _auth
           .sendPasswordResetEmail(email: email)
-          .then((uid) => {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => LoginPage()))
-              })
-          .catchError((e) {});
+          .then((uid) => {Navigator.pushReplacementNamed(context, '/')})
+          .catchError((e) {
+        return e;
+      });
     }
   }
 }

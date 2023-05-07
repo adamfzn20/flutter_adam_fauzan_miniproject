@@ -1,11 +1,6 @@
-import 'package:e_vent/screen/home_screen/home_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../forgot_password/forgotpass_screen.dart';
-import '../register/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final _auth = FirebaseAuth.instance;
 
-  late SharedPreferences logindata;
+  late SharedPreferences loginData;
   late bool newUser;
   @override
   void initState() {
@@ -32,17 +27,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void checkLogin() async {
-    logindata = await SharedPreferences.getInstance();
-    newUser = logindata.getBool('login') ?? true;
+    loginData = await SharedPreferences.getInstance();
+    newUser = loginData.getBool('login') ?? true;
 
     if (newUser == false) {
-      Navigator.pushNamedAndRemoveUntil(context, '/homepage', (route) => false);
-      // Navigator.pushAndRemoveUntil(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => const HomePage(),
-      //     ),
-      //     (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/homePage', (route) => false);
     }
   }
 
@@ -73,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                       const Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          "Masuk ke akun Anda",
+                          "Login To Your Account",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -171,15 +160,10 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/forgotpass');
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => Forgotpass(),
-                              //   ),
-                              // );
+                              Navigator.pushNamed(context, '/forgotPass');
                             },
                             child: const Text(
-                              "Lupa Password?",
+                              "Forgot Password?",
                               style: TextStyle(
                                 color: Color(0xff3C5E8D),
                               ),
@@ -209,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text(
                           "Login",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                           ),
                         ),
                       ),
@@ -221,9 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                           maintainAnimation: true,
                           maintainState: true,
                           visible: visible,
-                          child: const CircularProgressIndicator(
-                            color: Color(0xff3C5E8D),
-                          )),
+                          child: const CircularProgressIndicator()),
                     ],
                   ),
                 ),
@@ -233,20 +215,14 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Belum punya akun?",
+                  "Don't have an account?",
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/register');
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => Register(),
-                    //   ),
-                    // );
                   },
                   child: const Text(
-                    "Buat Akun",
+                    "Register",
                     style: TextStyle(
                       color: Color(0xff3C5E8D),
                       fontSize: 16,
@@ -265,19 +241,12 @@ class _LoginPageState extends State<LoginPage> {
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
+        UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
-        logindata.setBool('login', false);
-        Navigator.pushReplacementNamed(context, '/homepage');
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => HomePage(),
-        //   ),
-        // );
+        loginData.setBool('login', false);
+        Navigator.pushReplacementNamed(context, '/homePage');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
