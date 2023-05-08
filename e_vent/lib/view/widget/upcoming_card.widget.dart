@@ -53,50 +53,43 @@ class UpcomingEventsList extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8.0),
-                      Row(
-                        children: [
-                          Text(
-                            event.title.toString(),
-                            style: const TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              event.title.toString(),
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 5.0),
-                          event.price != 0
-                              ? Text(
-                                  'Rp ${event.price}',
-                                )
-                              : const Text(
-                                  'Gratis',
-                                )
-                        ],
+                            const SizedBox(height: 5.0),
+                            date!.minute == 0
+                                ? Text(
+                                    '${DateFormat('yMMMd').format(date)} - ${date.hour}:${date.minute}${date.second}',
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(172, 241, 80, 27),
+                                    ),
+                                  )
+                                : Text(
+                                    '${DateFormat('yMMMd').format(date)} - ${date.hour}:${date.minute}',
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(172, 241, 80, 27),
+                                    ),
+                                  ),
+                            const SizedBox(height: 5.0),
+                            event.price != 0
+                                ? Text(
+                                    'Rp ${event.price}',
+                                  )
+                                : const Text(
+                                    'Gratis',
+                                  )
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 4.0),
-                      date!.minute == 0
-                          ? Text(
-                              '${DateFormat('yMMMd').format(date)} - ${date.hour}:${date.minute}${date.second}',
-                              style: const TextStyle(
-                                color: Color.fromARGB(172, 241, 80, 27),
-                              ),
-                            )
-                          : Text(
-                              '${DateFormat('yMMMd').format(date)} - ${date.hour}:${date.minute}',
-                              style: const TextStyle(
-                                color: Color.fromARGB(172, 241, 80, 27),
-                              ),
-                            ),
-                      // Row(
-                      //   children: [
-                      //     const Icon(
-                      //       Icons.location_on,
-                      //       size: 16,
-                      //     ),
-                      //     Text(
-                      //       event.location.toString(),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
