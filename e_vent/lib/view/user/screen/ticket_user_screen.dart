@@ -80,45 +80,37 @@ class _TicketEventScreenState extends State<TicketEventScreen> {
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SizedBox(
-                      height: 80,
+                      height: 120,
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         color: Colors.white,
                         elevation: 5,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => TicketDetailUserScreen(
-                                  eventId: ticket.eventId.toString(),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 50,
+                                width: 120,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(15),
+                                  ),
+                                  child: Image.network(
+                                      ticket.imageEvent.toString()),
                                 ),
                               ),
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                  width: 120,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(15),
-                                      topLeft: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15),
-                                      bottomRight: Radius.circular(15),
-                                    ),
-                                    child: Image.network(
-                                        ticket.imageEvent.toString()),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Column(
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              SizedBox(
+                                width: 170,
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -154,26 +146,26 @@ class _TicketEventScreenState extends State<TicketEventScreen> {
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    ticket.totalPrice != 0
+                                        ? Text(
+                                            'Rp ${ticket.totalPrice}',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )
+                                        : const Text(
+                                            'Gratis',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )
                                   ],
                                 ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                ticket.totalPrice != 0
-                                    ? Text(
-                                        'Rp ${ticket.totalPrice}',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    : const Text(
-                                        'Gratis',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

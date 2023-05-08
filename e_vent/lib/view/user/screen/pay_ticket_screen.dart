@@ -75,73 +75,105 @@ class _PayTicketScreenState extends State<PayTicketScreen> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SizedBox(
-                      height: 80,
+                      height: 120,
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         color: Colors.white,
                         elevation: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 50,
-                                width: 120,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    topLeft: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15),
-                                    bottomRight: Radius.circular(15),
-                                  ),
-                                  child: Image.network(
-                                      _ticket!.imageEvent.toString()),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => PayTicketScreen(
+                                  ticketId: _ticket!.id.toString(),
+                                  eventId: _ticket!.eventId.toString(),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    _ticket!.titleEvent.toString(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                  width: 120,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(15),
+                                      topLeft: Radius.circular(15),
+                                      bottomLeft: Radius.circular(15),
+                                      bottomRight: Radius.circular(15),
                                     ),
+                                    child: Image.network(
+                                        _ticket!.imageEvent.toString()),
                                   ),
-                                  _ticket!.dateEvent!.minute == 0
-                                      ? Text(
-                                          '${DateFormat('yMMMd').format(date!)} - ${date!.hour}:${date!.minute}${date!.second}',
-                                          style: const TextStyle(
-                                            color: Color.fromARGB(
-                                                172, 241, 80, 27),
-                                            fontSize: 12,
-                                          ),
-                                        )
-                                      : Text(
-                                          '${DateFormat('yMMMd').format(date!)} - ${date!.hour}:${date!.minute}',
-                                          style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  172, 241, 80, 27),
-                                              fontSize: 12),
-                                        ),
-                                  Row(
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                SizedBox(
+                                  width: 170,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Icon(
-                                        Icons.location_on,
-                                        size: 16,
-                                      ),
                                       Text(
-                                        _ticket!.locationEvent.toString(),
+                                        '${_ticket!.titleEvent}',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
+                                      _ticket!.dateEvent!.minute == 0
+                                          ? Text(
+                                              '${DateFormat('yMMMd').format(date!)} - ${date!.hour}:${date!.minute}${date!.second}',
+                                              style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    172, 241, 80, 27),
+                                                fontSize: 12,
+                                              ),
+                                            )
+                                          : Text(
+                                              '${DateFormat('yMMMd').format(date!)} - ${date!.hour}:${date!.minute}',
+                                              style: const TextStyle(
+                                                  color: Color.fromARGB(
+                                                      172, 241, 80, 27),
+                                                  fontSize: 12),
+                                            ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.location_on,
+                                            size: 16,
+                                          ),
+                                          Text(
+                                            _ticket!.locationEvent.toString(),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      _ticket!.totalPrice != 0
+                                          ? Text(
+                                              'Rp ${_ticket!.totalPrice}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                          : const Text(
+                                              'Gratis',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
                                     ],
                                   ),
-                                ],
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

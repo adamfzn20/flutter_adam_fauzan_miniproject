@@ -81,7 +81,7 @@ class _PaymentUserScreenState extends State<PaymentUserScreen> {
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SizedBox(
-                      height: 80,
+                      height: 120,
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -120,60 +120,64 @@ class _PaymentUserScreenState extends State<PaymentUserScreen> {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${ticket.titleEvent}',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    ticket.dateEvent!.minute == 0
-                                        ? Text(
-                                            '${DateFormat('yMMMd').format(date!)} - ${date.hour}:${date.minute}${date.second}',
-                                            style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  172, 241, 80, 27),
-                                              fontSize: 12,
-                                            ),
-                                          )
-                                        : Text(
-                                            '${DateFormat('yMMMd').format(date!)} - ${date.hour}:${date.minute}',
-                                            style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                    172, 241, 80, 27),
-                                                fontSize: 12),
-                                          ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.location_on,
-                                          size: 16,
-                                        ),
-                                        Text(
-                                          ticket.locationEvent.toString(),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                ticket.totalPrice != 0
-                                    ? Text(
-                                        'Rp ${ticket.totalPrice}',
+                                SizedBox(
+                                  width: 170,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${ticket.titleEvent}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
-                                      )
-                                    : const Text(
-                                        'Gratis',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
+                                      ),
+                                      ticket.dateEvent!.minute == 0
+                                          ? Text(
+                                              '${DateFormat('yMMMd').format(date!)} - ${date.hour}:${date.minute}${date.second}',
+                                              style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    172, 241, 80, 27),
+                                                fontSize: 12,
+                                              ),
+                                            )
+                                          : Text(
+                                              '${DateFormat('yMMMd').format(date!)} - ${date.hour}:${date.minute}',
+                                              style: const TextStyle(
+                                                  color: Color.fromARGB(
+                                                      172, 241, 80, 27),
+                                                  fontSize: 12),
+                                            ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.location_on,
+                                            size: 16,
+                                          ),
+                                          Text(
+                                            ticket.locationEvent.toString(),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      ticket.totalPrice != 0
+                                          ? Text(
+                                              'Rp ${ticket.totalPrice}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                          : const Text(
+                                              'Gratis',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
