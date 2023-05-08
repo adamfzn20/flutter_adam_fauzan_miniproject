@@ -3,7 +3,7 @@ import 'package:e_vent/model/ticket/ticket_model.dart';
 import 'package:e_vent/model/user/user_model.dart';
 import 'package:e_vent/service/event_service.dart';
 import 'package:e_vent/service/ticket_service.dart';
-import 'package:e_vent/view/user/screen/buy_ticket_screen.dart';
+import 'package:e_vent/view/user/screen/pay_ticket_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -92,7 +92,7 @@ class _PaymentUserScreenState extends State<PaymentUserScreen> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => BuyTicketScreen(
+                                builder: (context) => PayTicketScreen(
                                   ticketId: ticket.id.toString(),
                                   eventId: ticket.eventId.toString(),
                                 ),

@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_vent/model/event/event_model.dart';
 import 'package:e_vent/model/user/user_model.dart';
 import 'package:e_vent/service/event_service.dart';
+import 'package:e_vent/view/admin/provider/event_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class EventAddScreen extends StatefulWidget {
   const EventAddScreen({super.key});
@@ -166,7 +168,9 @@ class _EventAddScreenState extends State<EventAddScreen> {
           status: true,
         );
         try {
-          await EventService().addEvent(newEvent, _imageFile!);
+          await Provider.of<EventProvider>(context, listen: false)
+              .addEvent(newEvent, _imageFile!);
+          //await EventService().addEvent(newEvent, _imageFile!);
           Navigator.pushReplacementNamed(context, '/homePage');
         } catch (error) {
           setState(() {

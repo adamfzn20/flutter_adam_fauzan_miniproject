@@ -70,13 +70,51 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 100,
-                        child: Image.asset('assets/logo_warna.png'),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 140,
+                            child: Image.asset('assets/logo_warna.png'),
+                          ),
+                        ],
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(loggedInUser.image.toString()),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Welcome $name,',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Text('find your best event',
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Divider(),
                     ],
                   ),
                 ),
@@ -101,27 +139,26 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
 
                       return Column(
                         children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
                           CarouselSlider.builder(
                             itemCount: events.length,
                             itemBuilder: (context, index, realIndex) {
                               final event = events[index];
 
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 16),
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20),
-                                    bottomRight: Radius.circular(20),
-                                  ),
-                                  child: Image.network(
-                                    event.image.toString(),
-                                    height: 200,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                  ),
+                              return ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  topLeft: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20),
+                                ),
+                                child: Image.network(
+                                  event.image.toString(),
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
                                 ),
                               );
                             },
@@ -130,6 +167,9 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                               aspectRatio: 16 / 9,
                               enlargeCenterPage: true,
                             ),
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           Expanded(
                             child: Column(
@@ -151,6 +191,9 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                       ),
                                     ),
                                   ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
                                 ),
                                 const UpcomingEventsList(),
                               ],

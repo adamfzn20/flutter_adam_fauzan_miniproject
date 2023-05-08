@@ -19,7 +19,7 @@ class _UsersState extends State<Users> {
 
   _UsersState({required this.id});
 
-  PageController pageController = PageController();
+  //PageController pageController = PageController();
   List<Widget> pages = [
     const HomeUserScreen(),
     const SearchEventScreen(),
@@ -34,10 +34,6 @@ class _UsersState extends State<Users> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  void onItemTap(int selectedItems) {
-    pageController.jumpToPage(selectedItems);
   }
 
   @override
@@ -79,7 +75,7 @@ class _UsersState extends State<Users> {
               // specify what will happen when a tab is clicked
               onTabChange: (clickedIndex) {
                 setState(() {
-                  _selectedIndex = clickedIndex;
+                  onPageChanged(clickedIndex);
                 });
               },
               tabs: const [

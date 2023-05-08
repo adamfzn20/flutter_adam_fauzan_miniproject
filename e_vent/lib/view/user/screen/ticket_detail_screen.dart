@@ -56,7 +56,7 @@ class _TicketDetailUserScreenState extends State<TicketDetailUserScreen> {
             role = loggedInUser.wrole.toString();
             id = loggedInUser.uid.toString();
             name = loggedInUser.name.toString();
-            image = loggedInUser.name.toString();
+            image = loggedInUser.image.toString();
           });
         }
       });
@@ -172,7 +172,7 @@ class _TicketDetailUserScreenState extends State<TicketDetailUserScreen> {
                           children: [
                             CircleAvatar(
                               backgroundImage:
-                                  NetworkImage(loggedInUser.image.toString()),
+                                  NetworkImage(_event!.imageAdmin.toString()),
                             ),
                             const SizedBox(width: 8),
                             Text(

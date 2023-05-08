@@ -1,6 +1,8 @@
+import 'package:e_vent/view/admin/provider/event_provider.dart';
 import 'package:e_vent/view/admin/screen/event_edit_screen.dart';
 import 'package:e_vent/view/widget/card_detail_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../model/event/event_model.dart';
 import '../../../service/event_service.dart';
@@ -64,7 +66,9 @@ class _EventDetailAdminScreenState extends State<EventDetailAdminScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
-                _eventService.deleteEvent(_event!.id.toString());
+                Provider.of<EventProvider>(context, listen: false)
+                    .deleteEvent(_event!.id.toString());
+                // _eventService.deleteEvent(_event!.id.toString());
                 Navigator.pop(context);
               },
               child: const Text('Yes'),
@@ -78,13 +82,16 @@ class _EventDetailAdminScreenState extends State<EventDetailAdminScreen> {
   void _openCloseRegistration() async {
     if (_event!.status == true) {
       Event updatedEvent = _event!.copyWith(status: false);
-      await _eventService.updateEvent(updatedEvent);
+      Provider.of<EventProvider>(context, listen: false)
+          .updateEvent(updatedEvent);
+      //await _eventService.updateEvent(updatedEvent);
       setState(() {
         _event = updatedEvent;
       });
     } else {
       Event updatedEvent = _event!.copyWith(status: true);
-      await _eventService.updateEvent(updatedEvent);
+      Provider.of<EventProvider>(context, listen: false)
+          .updateEvent(updatedEvent);
       setState(() {
         _event = updatedEvent;
       });

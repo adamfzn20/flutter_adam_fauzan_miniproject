@@ -56,7 +56,7 @@ class _EventDetailUserScreenState extends State<EventDetailUserScreen> {
             role = loggedInUser.wrole.toString();
             id = loggedInUser.uid.toString();
             name = loggedInUser.name.toString();
-            image = loggedInUser.name.toString();
+            image = loggedInUser.image.toString();
           });
         }
       });
@@ -211,7 +211,7 @@ class _EventDetailUserScreenState extends State<EventDetailUserScreen> {
                           children: [
                             CircleAvatar(
                               backgroundImage:
-                                  NetworkImage(loggedInUser.image.toString()),
+                                  NetworkImage(_event!.imageAdmin.toString()),
                             ),
                             const SizedBox(width: 8),
                             Text(

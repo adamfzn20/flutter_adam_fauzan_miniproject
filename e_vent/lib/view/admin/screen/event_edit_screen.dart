@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:e_vent/model/event/event_model.dart';
 import 'package:e_vent/service/event_service.dart';
+import 'package:e_vent/view/admin/provider/event_provider.dart';
 import 'package:e_vent/view/admin/screen/event_detail_admin_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class EventEditScreen extends StatefulWidget {
   final Event event;
@@ -148,7 +150,9 @@ class _EventEditScreenState extends State<EventEditScreen> {
     );
 
     if (_isLoading == true) {
-      await eventService.updateEvent(editedEvent);
+      //await eventService.updateEvent(editedEvent);
+      await Provider.of<EventProvider>(context, listen: false)
+          .updateEvent(editedEvent);
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) =>
